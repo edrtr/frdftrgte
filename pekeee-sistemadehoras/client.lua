@@ -29,12 +29,28 @@ local function calculateDistance(x1, y1, z1, x2, y2, z2)
     return math.sqrt(dx * dx + dy * dy + dz * dz)
 end
 
+-- Function to create a blip for the GreenArea
+local function createGreenAreaBlip()
+    local center = Config.GreenArea.center
+    local blip = AddBlipForCoord(center.x, center.y, center.z)
+    SetBlipSprite(blip, 1) -- Set the blip sprite
+    SetBlipColour(blip, 2) -- Set the blip color to green
+    SetBlipScale(blip, 1.0) -- Set the blip scale
+    SetBlipAsShortRange(blip, true) -- Ensure the blip is short-range
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString("Green Area")
+    EndTextCommandSetBlipName(blip)
+end
+
 -- Function to draw the green area on the map
 local function drawGreenArea()
     local center = Config.GreenArea.center
     local radius = Config.GreenArea.radius
     DrawMarker(1, center.x, center.y, center.z - 1.0, 0, 0, 0, 0, 0, 0, radius * 2.0, radius * 2.0, 1.0, 0, 255, 0, 100, false, false, 2, false, nil, nil, false)
 end
+
+-- Create the blip for the GreenArea when the script starts
+createGreenAreaBlip()
 
 -- Main thread to monitor player's position and draw the green area
 Citizen.CreateThread(function()
