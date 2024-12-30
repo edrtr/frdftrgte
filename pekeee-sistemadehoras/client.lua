@@ -46,7 +46,7 @@ end
 local function drawGreenArea()
     local center = Config.GreenArea.center
     local radius = Config.GreenArea.radius
-    DrawMarker(1, center.x, center.y, center.z - 1.0, 0, 0, 0, 0, 0, 0, radius * 2.0, radius * 2.0, 1.0, 0, 255, 0, 200, false, false, 2, false, nil, nil, false)
+    DrawMarker(28, center.x, center.y, center.z - 1.0, 0, 0, 0, 0, 0, 0, radius, radius, 1.0, 0, 255, 0, 100, false, false, 2, false, nil, nil, false)
 end
 
 -- Main thread to monitor player's position and draw the green area
