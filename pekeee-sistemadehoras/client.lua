@@ -49,11 +49,9 @@ local function drawGreenArea()
     DrawMarker(1, center.x, center.y, center.z - 1.0, 0, 0, 0, 0, 0, 0, radius * 2.0, radius * 2.0, 1.0, 0, 255, 0, 100, false, false, 2, false, nil, nil, false)
 end
 
--- Create the blip for the GreenArea when the script starts
-createGreenAreaBlip()
-
 -- Main thread to monitor player's position and draw the green area
 Citizen.CreateThread(function()
+    createGreenAreaBlip() -- Ensure the blip is created and visible
     while true do
         Citizen.Wait(0) -- Continuously draw the area
 
