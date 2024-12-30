@@ -35,7 +35,7 @@ local function createGreenAreaBlip()
     local blip = AddBlipForCoord(center.x, center.y, center.z)
     SetBlipSprite(blip, 1) -- Set the blip sprite
     SetBlipColour(blip, 2) -- Set the blip color to green
-    SetBlipScale(blip, 1.0) -- Set the blip scale
+    SetBlipScale(blip, 1.5) -- Increase the blip scale for better visibility
     SetBlipAsShortRange(blip, true) -- Ensure the blip is short-range
     BeginTextCommandSetBlipName("STRING")
     AddTextComponentString("Green Area")
@@ -46,7 +46,7 @@ end
 local function drawGreenArea()
     local center = Config.GreenArea.center
     local radius = Config.GreenArea.radius
-    DrawMarker(1, center.x, center.y, center.z - 1.0, 0, 0, 0, 0, 0, 0, radius * 2.0, radius * 2.0, 1.0, 0, 255, 0, 150, false, false, 2, false, nil, nil, false)
+    DrawMarker(1, center.x, center.y, center.z - 1.0, 0, 0, 0, 0, 0, 0, radius * 2.0, radius * 2.0, 1.0, 0, 255, 0, 200, false, false, 2, false, nil, nil, false)
 end
 
 -- Main thread to monitor player's position and draw the green area
