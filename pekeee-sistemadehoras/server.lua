@@ -39,19 +39,28 @@ end)
 
 -- Event to update player hours
 RegisterServerEvent("pekehoras:actualizahoras")
-AddEventHandler("pekehoras:actualizahoras", function(horas)
+AddEventHandler("pekehoras:actualizahoras", function()
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
 
     if xPlayer then
-        MySQL.Async.execute('UPDATE users SET horas = @horas WHERE identifier = @identifier', {
-            ['@identifier'] = xPlayer.identifier,
-            ['@horas'] = horas,
-        }, function(affectedRows)
-            if affectedRows > 0 then
-                print("Horas actualizadas para el jugador " .. xPlayer.getName())
+        MySQL.Async.fetchAll('SELECT horas FROM users WHERE identifier = @identifier', {
+            ['@identifier'] = xPlayer.identifier
+        }, function(result)
+            if result[1] and result[1].horas ~= nil then
+                local newHoras = result[1].horas + 1
+                MySQL.Async.execute('UPDATE users SET horas = @horas WHERE identifier = @identifier', {
+                    ['@identifier'] = xPlayer.identifier,
+                    ['@horas'] = newHoras,
+                }, function(affectedRows)
+                    if affectedRows > 0 then
+                        print("Horas incrementadas para el jugador " .. xPlayer.getName())
+                    else
+                        print("No se pudo incrementar las horas para el jugador " .. xPlayer.getName())
+                    end
+                end)
             else
-                print("No se pudo actualizar las horas para el jugador " .. xPlayer.getName())
+                print("Error: Información de horas no disponible o es nula para el jugador " .. xPlayer.getName())
             end
         end)
     else

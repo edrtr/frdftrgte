@@ -13,6 +13,14 @@ ESX.TriggerServerCallback("pekehoras:obtenerinfo", function(data)
     end
 end)
 
+-- Thread to update player hours every hour
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(3600000) -- Wait for one hour (3600000 milliseconds)
+        TriggerServerEvent("pekehoras:actualizahoras")
+    end
+end)
+
 -- Function to calculate distance between two points
 local function calculateDistance(x1, y1, z1, x2, y2, z2)
     local dx = x1 - x2
